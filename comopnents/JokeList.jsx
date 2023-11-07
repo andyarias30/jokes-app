@@ -10,16 +10,14 @@ export default function JokesList(){
     useEffect(() => {
         fetch('https://api.sampleapis.com/jokes/goodJokes')
         .then(res => res.json())
-        .then(shuffleJokes)
+        .then(setJokes)
         .catch(alert)
+        .finally(shuffleJokes)
     }, [])
 
-    const shuffleJokes = (array) => {
-        for(let i = array.length - 1; i > 0; i--){
-            const j = Math.floor(Math.random() * (i + 1))
-            [array[j] , array[i]] = [array[i] , array[j]]
-        }
-        setJokes(array)
+    const shuffleJokes = () => {
+        const j = Math.floor(Math.random() * jokes.length)
+        setCurrentJoke(j)
     }
 
     const nextJoke = () => {
